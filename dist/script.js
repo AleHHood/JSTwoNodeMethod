@@ -6842,10 +6842,10 @@ var getCalculation = function getCalculation(branchs) {
     block.element.prepend(span);
 
     if (!revers) {
-      block.element.style.cssText = "background: url(../svg/Arrow.SVG) -130% -90% no-repeat;\n                background-size: 97px;";
+      block.element.style.cssText = "background: url(../img/svg/Arrow.SVG) -130% -90% no-repeat;\n                background-size: 97px;";
     } else {
       console.log('revers');
-      block.element.style.cssText = "background: url(../svg/Arrow.SVG) -130% -90% no-repeat;\n                background-size: 97px;";
+      block.element.style.cssText = "background: url(../img/svg/Arrow.SVG) -130% -90% no-repeat;\n                background-size: 97px;";
     }
   }
 
@@ -7110,6 +7110,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+/* https://github.com/bevacqua/react-dragula импортируем готовое 
+решение для drag and drop  */
 
 
 
@@ -7146,7 +7148,7 @@ var dragggrid = function dragggrid() {
       ActiveBlocks = []; //массив блоков в рабочей зоне
 
   var formData;
-  var scheme = 0;
+  var scheme = 0; //Класс для создание перетаскиваемых блоков (резисторы, эдс, ветви, узлы)  
 
   var Block =
   /*#__PURE__*/
@@ -7160,14 +7162,19 @@ var dragggrid = function dragggrid() {
 
       this.voltage = voltage;
       this.resistance = resistance;
-      this.cell = cell;
+      this.cell = cell; //ячейка сетки в котором находится блок
+
       this.id = id;
       this.element = element;
-      this.number = number;
-      this.error = error;
-      this.x = x;
-      this.y = y;
-    }
+      this.number = number; //номер элемента (присваевается пользователем)
+
+      this.error = error; //Запись ошибки при некорректном заполнении юзером
+
+      this.x = x; //координат по х (номер столбца ячейки)
+
+      this.y = y; //координатат по y(номер строки ячейки)
+    } //Содержимое окна параметров блока (зависит от типа элемента)
+
 
     _createClass(Block, [{
       key: "getParametrForm",
@@ -7274,7 +7281,7 @@ var dragggrid = function dragggrid() {
             this.number = inputFormN.value;
           } else {
             el.style.display = 'none'; ////////////////
-            // удаляем класс ощибки с инпута
+            // удаляем класс ошибки с инпута
 
             /* InputForm.classList.remove('input__error'); */
 
@@ -7310,38 +7317,41 @@ var dragggrid = function dragggrid() {
       return target !== blockBar;
     },
     mirrorContainer: container
-  });
+  }); // Копируем массив всех div в которые можно перетаскивать блоки
+
   drake.containers.forEach(function (element) {
     copyDrakeContainers.push(element);
-  });
+  }); //Ограничиваем перетаскивание блоков в уже занятые ячейки
 
-  function LimitingByDragging() {
-    container.addEventListener('mousedown', function (event) {
-      var target = event.target;
+  function LimitingByDragging(event) {
+    var target = event.target;
 
-      if (target && target.classList.contains('calculation__block')) {
-        console.log('mousedown');
-        blocks.forEach(function (element) {
-          element.element.classList.remove('active');
-        });
-        getForm(target);
-        drake.containers = [];
-        copyDrakeContainers.forEach(function (element) {
-          drake.containers.push(element);
-        });
-        cell.forEach(function (element, i) {
-          if (element.firstChild && element.firstChild != event.target) {
-            i = i + 1;
-            drake.containers.splice(i, 1, 0);
-            i = i - 1;
-          }
-        });
-      }
+    if (target && target.classList.contains('calculation__block')) {
+      console.log('mousedown');
+      blocks.forEach(function (element) {
+        element.element.classList.remove('active');
+      });
+      getForm(target); //Сбрасываем перетаскивание div до изначальных настроек
 
-      if (target && target.classList.contains('grid__cell')) {
-        closeBlockSettings();
-      }
-    });
+      drake.containers = [];
+      copyDrakeContainers.forEach(function (element) {
+        drake.containers.push(element);
+      }); //Перебираем все ячейки сетки, разрешаем перетаскиваение только в
+      //пустые ячейки или в текущую
+
+      cell.forEach(function (element, i) {
+        if (element.firstChild && element.firstChild != event.target) {
+          i = i + 1;
+          drake.containers.splice(i, 1, 0);
+          i = i - 1;
+        }
+      });
+    } //Если произошло нажатие на пустую ячейку, то закрываем окно параметров блока
+
+
+    if (target && target.classList.contains('grid__cell')) {
+      closeBlockSettings();
+    }
   }
 
   function closeBlockSettings() {
@@ -7356,34 +7366,12 @@ var dragggrid = function dragggrid() {
 
   containerBottom.addEventListener('click', function (event) {
     closeBlockSettings();
-  });
-
-  function MobileLimitingByDragging() {
-    container.addEventListener('touchstart', function (event) {
-      var target = event.target;
-
-      if (target && target.classList.contains('calculation__block')) {
-        drake.containers = [];
-        copyDrakeContainers.forEach(function (element) {
-          drake.containers.push(element);
-        });
-        cell.forEach(function (element, i) {
-          if (element.firstChild && element.firstChild != event.target) {
-            i = i + 1;
-            drake.containers.splice(i, 1, 0);
-            i = i - 1;
-          }
-        });
-      }
-    });
-  }
+  }); //----Создаём новый блок--------//
 
   function GetNewBlock() {
     var classesBlock = 0;
     blockBar.addEventListener('mousedown', function (event) {
       var target = event.target;
-      /*             console.log(event.target); */
-
       matchBlocks('calculation__block-R');
 
       if (target && target.classList.contains('calculation__block-R')) {
@@ -7422,12 +7410,10 @@ var dragggrid = function dragggrid() {
   }
 
   function matchBlocks(classBlock) {
-    var x = 0;
+    var j = 0;
     blockBar.children.forEach(function (element, i) {
       if (element.classList == "calculation__block none ".concat(classBlock)) {
-        x = x + 1;
-
-        if (x > 1) {
+        if (++j > 1) {
           blockBar.children[i].remove();
         }
       }
@@ -7697,8 +7683,7 @@ var dragggrid = function dragggrid() {
           let scrolled = window.pageYOffset;
           let windowWidth = document.documentElement.clientWidth;
           let windowHeight = document.documentElement.clientHeight;
-  
-          if(windowHeight < 950 && windowWidth < 1200){
+            if(windowHeight < 950 && windowWidth < 1200){
               window.scrollTo({
                   top: scrollTo,
                   behavior: "smooth"
@@ -7945,8 +7930,12 @@ var dragggrid = function dragggrid() {
   }
 
   GetNewBlock();
-  LimitingByDragging();
-  MobileLimitingByDragging();
+  container.addEventListener('mousedown', function (event) {
+    LimitingByDragging(event);
+  });
+  container.addEventListener('touchstart', function (event) {
+    LimitingByDragging(event);
+  });
   setInterval(function () {
     return ShowBlocks();
   }, 100); //Не забыть остановить

@@ -269,12 +269,12 @@ const getCalculation = (branchs) => {
             block.element.prepend(span);
             if(!revers){
                 block.element.style.cssText = 
-                `background: url(../svg/Arrow.SVG) -130% -90% no-repeat;
+                `background: url(../img/svg/Arrow.SVG) -130% -90% no-repeat;
                 background-size: 97px;`;
             } else {
                 console.log('revers');
                 block.element.style.cssText = 
-                `background: url(../svg/Arrow.SVG) -130% -90% no-repeat;
+                `background: url(../img/svg/Arrow.SVG) -130% -90% no-repeat;
                 background-size: 97px;`;
             }
     }
