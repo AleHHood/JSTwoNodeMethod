@@ -3608,6 +3608,36 @@ $({ target: 'Array', proto: true, forced: FORCED }, {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/es.array.filter.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/core-js/modules/es.array.filter.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
+var $filter = __webpack_require__(/*! ../internals/array-iteration */ "./node_modules/core-js/internals/array-iteration.js").filter;
+var arrayMethodHasSpeciesSupport = __webpack_require__(/*! ../internals/array-method-has-species-support */ "./node_modules/core-js/internals/array-method-has-species-support.js");
+var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
+
+var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('filter');
+// Edge 14- issue
+var USES_TO_LENGTH = arrayMethodUsesToLength('filter');
+
+// `Array.prototype.filter` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.filter
+// with adding support of @@species
+$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH }, {
+  filter: function filter(callbackfn /* , thisArg */) {
+    return $filter(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/es.array.from.js":
 /*!*******************************************************!*\
   !*** ./node_modules/core-js/modules/es.array.from.js ***!
@@ -6615,17 +6645,15 @@ __webpack_require__.r(__webpack_exports__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
-
+ // Расчет электрических параметров схемы
 
 var getCalculation = function getCalculation(branchs) {
-  console.log(branchs); ///////////////
-
   var answerSection = document.querySelector('.answer');
   var parameters = [],
       U = 0,
       I = [],
       textArr = [],
-      answer;
+      answer; //Класс элементов вевти схемы
 
   var branchElements = function branchElements(numberBranch, nameR, resistance, nameG, conductance, nameE, voltage) {
     _classCallCheck(this, branchElements);
@@ -6696,7 +6724,8 @@ var getCalculation = function getCalculation(branchs) {
     textArr.forEach(function (element) {
       Object(_mathExpression__WEBPACK_IMPORTED_MODULE_4__["default"])(element, answer);
     });
-  }
+  } // Расчет сопротивления
+
 
   function GetValueResist(R, K, numberBranch) {
     parameters[numberBranch] = new branchElements(numberBranch);
@@ -6743,17 +6772,14 @@ var getCalculation = function getCalculation(branchs) {
       getAnswerBlock(textArr);
       textArr = [];
     }
-  }
+  } // Расчет напряжения
+
 
   function GetValueVoltage(R, K, numberBranch) {
     var voltage = 0;
     var Name = '';
 
     if (K === 0) {
-      /*             textArr.push(`Эдс для ветви №${numberBranch}`);
-                  textArr.push(`0 В`);
-                  getAnswerBlock(textArr);
-                  textArr = []; */
       parameters[numberBranch].nameE = " + 0";
       parameters[numberBranch].voltage = 0;
       return;
@@ -6765,11 +6791,6 @@ var getCalculation = function getCalculation(branchs) {
       if (R[K].rotate == 2) {
         voltage = -voltage;
       }
-      /*             textArr.push(`Эдс для ветви №${numberBranch}`);
-                  textArr.push(`E${R[K].number} = ${voltage} В`);
-                  getAnswerBlock(textArr);
-                  textArr = []; */
-
 
       Name = " + E".concat(R[K].number);
 
@@ -6818,7 +6839,8 @@ var getCalculation = function getCalculation(branchs) {
       parameters[numberBranch].nameE = "".concat(Name);
       parameters[numberBranch].voltage = +value;
     }
-  }
+  } // Добавление стрелок указывающие направленеи токов в ветвях
+
 
   function Arrow(block, numberBranch) {
     var revers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
@@ -6847,7 +6869,8 @@ var getCalculation = function getCalculation(branchs) {
       console.log('revers');
       block.element.style.cssText = "background: url(../img/svg/Arrow.SVG) -130% -90% no-repeat;\n                background-size: 97px;";
     }
-  }
+  } //Функция округления до 3 знаков после запятой
+
 
   function toFixed3(num) {
     var x = 0;
@@ -6924,23 +6947,17 @@ var getCalculation = function getCalculation(branchs) {
     textArr.push("notice \u042D\u0414\u0421 \u043D\u0430\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u043D\u0430\u044F \u043A \u0443\u0437\u043B\u0443 A, \u0437\u0430\u043F\u0438\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u0441\u043E \u0437\u043D\u0430\u043A\u043E\u043C \xAB+\xBB, \n        \u0435\u0441\u043B\u0438 \u0432 \u043F\u0440\u043E\u0442\u0438\u0432\u043E\u043F\u043E\u043B\u043E\u0436\u043D\u0443\u044E \u0441\u0442\u043E\u0440\u043E\u043D\u0443, \u0442\u043E \u0441\u043E \u0437\u043D\u0430\u043A\u043E\u043C \xAB-\xBB.");
     getAnswerBlock(textArr);
     textArr = [];
-  }
+  } // Нахлдим токи
+
 
   function FindCurrent() {
-    var sumEU = 0,
-        sumG = 0,
-        expressionEU = '',
-        expressionG = '',
+    var expressionEU = '',
         a = '',
         b = '',
         plus = '+';
     parameters.forEach(function (element, i) {
       I[i] = (element.voltage - U) * element.conductance;
-      I[i] = toFixed3(I[i]); //Меняем направление тока на схеме при отрицательных значениях
-
-      /*             if(I[i] < 0) {
-                      Arrow(branchs[0].elements[i-1], i, 1);
-                  } */
+      I[i] = toFixed3(I[i]);
 
       if (U < 0) {
         plus = ' +';
@@ -6962,7 +6979,8 @@ var getCalculation = function getCalculation(branchs) {
       getAnswerBlock(textArr);
       textArr = [];
     });
-  }
+  } //Проверяем правильность решения через баланс
+
 
   function getBalance(parameters) {
     var sumEI = 0,
@@ -6975,12 +6993,7 @@ var getCalculation = function getCalculation(branchs) {
     textArr.push("\u0414\u043B\u044F \u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0438 \u043F\u0440\u0430\u0432\u0438\u043B\u044C\u043D\u043E\u0441\u0442\u0438 \u0440\u0435\u0448\u0435\u043D\u0438\u044F \u0441\u043E\u0441\u0442\u0430\u0432\u0438\u043C \n            <a href=\"https://electrikam.com/balans" + "-moshhnostej-v-cepi-postoyannogo-toka/\">\n            \u0431\u0430\u043B\u0430\u043D\u0441 \u043C\u043E\u0449\u043D\u043E\u0441\u0442\u0435\u0439</a>.");
     parameters.forEach(function (element, i) {
       sumEI = sumEI + element.voltage * I[i];
-      sumRII = sumRII + I[i] * I[i] * element.resistance; // добавляем скобки к отрицательным токам
-
-      /*             if(I[i] < 0) { 
-                      I[i] = `(${I[i]})`;
-                  } */
-      //Если напрвление токов не совпадает с направлением ЭДС
+      sumRII = sumRII + I[i] * I[i] * element.resistance; //Если напрвление токов не совпадает с направлением ЭДС
 
       if (element.voltage * I[i] < 0) {
         textArr.push("notice \u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A ".concat(SliceElement(element.nameE, ' -'), " \u043F\u043E\u0442\u0440\u0435\u0431\u043B\u044F\u0435\u0442 \n                    \u044D\u043B\u0435\u043A\u0442\u0440\u0438\u0447\u0435\u0441\u043A\u0443\u044E \u044D\u043D\u0435\u0440\u0433\u0438\u044E, \u0442.\u043A. \u043D\u0430\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u042D\u0414\u0421 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u0435\u0442 \u0441 \n                    \u043D\u0430\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435\u043C \u0442\u043E\u043A\u0430 \u0432 \u0432\u0435\u0442\u0432\u044F\u0445.\n                "));
@@ -7060,28 +7073,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_symbol_iterator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.array.concat */ "./node_modules/core-js/modules/es.array.concat.js");
 /* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_array_from__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.from */ "./node_modules/core-js/modules/es.array.from.js");
-/* harmony import */ var core_js_modules_es_array_from__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_from__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.array.iterator */ "./node_modules/core-js/modules/es.array.iterator.js");
-/* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_es_array_splice__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.array.splice */ "./node_modules/core-js/modules/es.array.splice.js");
-/* harmony import */ var core_js_modules_es_array_splice__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_splice__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.object.to-string */ "./node_modules/core-js/modules/es.object.to-string.js");
-/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.promise */ "./node_modules/core-js/modules/es.promise.js");
-/* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.regexp.to-string */ "./node_modules/core-js/modules/es.regexp.to-string.js");
-/* harmony import */ var core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.string.iterator */ "./node_modules/core-js/modules/es.string.iterator.js");
-/* harmony import */ var core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
-/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var dragula__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! dragula */ "./node_modules/dragula/dragula.js");
-/* harmony import */ var dragula__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(dragula__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _getScheme__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./getScheme */ "./src/js/modules/getScheme.js");
-/* harmony import */ var _calculationMethod__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./calculationMethod */ "./src/js/modules/calculationMethod.js");
+/* harmony import */ var core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.filter */ "./node_modules/core-js/modules/es.array.filter.js");
+/* harmony import */ var core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_array_from__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.array.from */ "./node_modules/core-js/modules/es.array.from.js");
+/* harmony import */ var core_js_modules_es_array_from__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_from__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.array.iterator */ "./node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_es_array_splice__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.array.splice */ "./node_modules/core-js/modules/es.array.splice.js");
+/* harmony import */ var core_js_modules_es_array_splice__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_splice__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.object.to-string */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.promise */ "./node_modules/core-js/modules/es.promise.js");
+/* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.regexp.to-string */ "./node_modules/core-js/modules/es.regexp.to-string.js");
+/* harmony import */ var core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.string.iterator */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.string.split */ "./node_modules/core-js/modules/es.string.split.js");
+/* harmony import */ var core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var dragula__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! dragula */ "./node_modules/dragula/dragula.js");
+/* harmony import */ var dragula__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(dragula__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _getScheme__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./getScheme */ "./src/js/modules/getScheme.js");
+/* harmony import */ var _calculationMethod__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./calculationMethod */ "./src/js/modules/calculationMethod.js");
+
+
 
 
 
@@ -7123,9 +7142,7 @@ var dragggrid = function dragggrid() {
       containerBottom = document.querySelector('.container__bottom'),
       calcBlocksettings = document.querySelector('.calculation__blocksettings'),
       blockSettings = document.querySelector('.blocksettings__container'),
-
-  /*     header = document.querySelector('.header'), */
-  cell = document.querySelectorAll('.grid__cell'),
+      cell = document.querySelectorAll('.grid__cell'),
       wrapperFormN = document.querySelector('.blocksettings__wrapper-N'),
       wrapperFormKnots = document.querySelector('.blocksettings__wrapper-Knots'),
       wrapperFormR = document.querySelector('.blocksettings__wrapper-R'),
@@ -7133,27 +7150,34 @@ var dragggrid = function dragggrid() {
       inputFormR = document.querySelector('#rblock'),
       inputFormE = document.querySelector('#eblock'),
       inputFormN = document.querySelector('#nblock'),
-      inputFormKnots = document.querySelector('#knotsblock'),
       notifyR = document.querySelector('#notifyR'),
       notifyE = document.querySelector('#notifyE'),
       notifyN = document.querySelector('#notifyN'),
       blocks = []; // массив блоков
 
   var copyDrakeContainers = [],
-      tx = 10,
       numId = 10,
-      ActiveBlock = 0; // активный блок
-
+      scheme = 0;
   var formSettings = document.querySelector('.calculation__settings'),
       ActiveBlocks = []; //массив блоков в рабочей зоне
-
-  var formData;
-  var scheme = 0; //Класс для создание перетаскиваемых блоков (резисторы, эдс, ветви, узлы)  
+  //Класс для создание перетаскиваемых блоков (резисторы, эдс, ветви, узлы)  
 
   var Block =
   /*#__PURE__*/
   function () {
-    function Block(rotate, type, voltage, resistance, cell, id, element, number, error, x, y) {
+    function Block() {
+      var rotate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var type = arguments.length > 1 ? arguments[1] : undefined;
+      var voltage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+      var resistance = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+      var cell = arguments.length > 4 ? arguments[4] : undefined;
+      var id = arguments.length > 5 ? arguments[5] : undefined;
+      var element = arguments.length > 6 ? arguments[6] : undefined;
+      var number = arguments.length > 7 ? arguments[7] : undefined;
+      var error = arguments.length > 8 ? arguments[8] : undefined;
+      var x = arguments.length > 9 ? arguments[9] : undefined;
+      var y = arguments.length > 10 ? arguments[10] : undefined;
+
       _classCallCheck(this, Block);
 
       this.rotate = rotate; // 0 - горизонтальное пол. 1 - вертикальное
@@ -7173,10 +7197,43 @@ var dragggrid = function dragggrid() {
       this.x = x; //координат по х (номер столбца ячейки)
 
       this.y = y; //координатат по y(номер строки ячейки)
-    } //Содержимое окна параметров блока (зависит от типа элемента)
-
+    }
 
     _createClass(Block, [{
+      key: "render",
+      value: function render(classesBlock) {
+        var newBlock = document.createElement('div');
+        newBlock.classList.add('calculation__block');
+        newBlock.classList.add(classesBlock);
+        newBlock.setAttribute('id', numId);
+
+        if (classesBlock == 'calculation__block-R') {
+          this.type = 0;
+        }
+
+        if (classesBlock == 'calculation__block-E') {
+          this.type = 1;
+        }
+
+        if (classesBlock == 'calculation__block-B') {
+          this.type = 2;
+        }
+
+        if (classesBlock == 'calculation__block-K') {
+          this.type = 3;
+        }
+
+        if (classesBlock == 'calculation__block-Corner') {
+          this.type = 4;
+        }
+
+        this.element = newBlock;
+        this.id = numId;
+        numId = numId + 1;
+        blockBar.append(newBlock);
+      } //Содержимое окна параметров блока (зависит от типа элемента)
+
+    }, {
       key: "getParametrForm",
       value: function getParametrForm() {
         switch (this.type) {
@@ -7237,9 +7294,6 @@ var dragggrid = function dragggrid() {
         switch (this.error) {
           case 'error':
             tNotify.style.display = 'block';
-            /* inputFormR.classList.add('input__error'); */
-            //////////////////////////
-
             tNotify.textContent = "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u043E\u0442 0 \u0434\u043E 1000";
             this.element.style.backgroundColor = 'pink';
             break;
@@ -7269,8 +7323,6 @@ var dragggrid = function dragggrid() {
     }, {
       key: "Validation",
       value: function Validation(InputForm, el) {
-        var tb = 0;
-
         if ((InputForm.value >= 1000 || InputForm.value <= 0) && InputForm !== inputFormN) {
           this.error = 'error';
           this.getErrorMessage();
@@ -7280,20 +7332,12 @@ var dragggrid = function dragggrid() {
             this.getErrorMessage();
             this.number = inputFormN.value;
           } else {
-            el.style.display = 'none'; ////////////////
-            // удаляем класс ошибки с инпута
-
-            /* InputForm.classList.remove('input__error'); */
-
+            el.style.display = 'none';
             this.number = inputFormN.value;
-            /* this.number = inputFormN.value; */
-
             this.error = '';
             this.element.style.backgroundColor = '#fff';
           }
         }
-
-        console.log("this error =   ".concat(this.error));
       }
     }]);
 
@@ -7309,28 +7353,27 @@ var dragggrid = function dragggrid() {
     blocks[i].type = +element.id;
     blocks[i].id = element.id;
     blocks[i].element = element;
-    console.log(blocks[i]);
   }); //-----------------Добавляем перетаскивание для блоков------------//
 
-  var drake = dragula__WEBPACK_IMPORTED_MODULE_13___default()([blockBar].concat(_toConsumableArray(cell)), {
+  var drake = dragula__WEBPACK_IMPORTED_MODULE_15___default()([blockBar].concat(_toConsumableArray(cell)), {
     accepts: function accepts(el, target) {
       return target !== blockBar;
     },
     mirrorContainer: container
   }); // Копируем массив всех div в которые можно перетаскивать блоки
 
-  drake.containers.forEach(function (element) {
-    copyDrakeContainers.push(element);
+  copyDrakeContainers = drake.containers.filter(function (element) {
+    return element;
   }); //Ограничиваем перетаскивание блоков в уже занятые ячейки
 
   function LimitingByDragging(event) {
     var target = event.target;
 
     if (target && target.classList.contains('calculation__block')) {
-      console.log('mousedown');
       blocks.forEach(function (element) {
         element.element.classList.remove('active');
-      });
+      }); //Вызываем окно настроек блока
+
       getForm(target); //Сбрасываем перетаскивание div до изначальных настроек
 
       drake.containers = [];
@@ -7346,13 +7389,9 @@ var dragggrid = function dragggrid() {
           i = i - 1;
         }
       });
-    } //Если произошло нажатие на пустую ячейку, то закрываем окно параметров блока
-
-
-    if (target && target.classList.contains('grid__cell')) {
-      closeBlockSettings();
     }
-  }
+  } //------------Закрываем окно настроек---------------//
+
 
   function closeBlockSettings() {
     blockSettings.classList.remove('blocksettings-show');
@@ -7364,151 +7403,46 @@ var dragggrid = function dragggrid() {
     });
   }
 
-  containerBottom.addEventListener('click', function (event) {
+  containerBottom.addEventListener('click', function () {
     closeBlockSettings();
   }); //----Создаём новый блок--------//
 
-  function GetNewBlock() {
-    var classesBlock = 0;
-    blockBar.addEventListener('mousedown', function (event) {
-      var target = event.target;
-      matchBlocks('calculation__block-R');
+  function GetNewBlock(event) {
+    var target = event.target;
+    var startDragg = false;
 
-      if (target && target.classList.contains('calculation__block-R')) {
-        classesBlock = 'calculation__block-R';
-        render(classesBlock);
-      }
+    if (target.className.indexOf('calculation__block calculation__block') >= 0) {
+      var numBlockBar = blockBar.children.length,
+          className = target.className.split(' ')[1];
 
-      matchBlocks('calculation__block-E');
+      var anim = function anim() {
+        if (!target.classList.contains("gu-transit") && startDragg) {
+          startDragg = true;
+        } else if (target.classList.contains("gu-transit")) {
+          startDragg = true;
+          addOrRemoveBlockInBlockbar(numBlockBar, className);
+          window.requestAnimationFrame(anim);
+        } else {
+          window.requestAnimationFrame(anim);
+        }
+      };
 
-      if (target && target.classList.contains('calculation__block-E')) {
-        classesBlock = 'calculation__block-E';
-        render(classesBlock);
-      }
+      window.requestAnimationFrame(anim);
 
-      matchBlocks('calculation__block-K');
-
-      if (target && target.classList.contains('calculation__block-K')) {
-        classesBlock = 'calculation__block-K';
-        render(classesBlock);
-      }
-
-      matchBlocks('calculation__block-B');
-
-      if (target && target.classList.contains('calculation__block-B')) {
-        classesBlock = 'calculation__block-B';
-        render(classesBlock);
-      }
-
-      matchBlocks('calculation__block-Corner');
-
-      if (target && target.classList.contains('calculation__block-Corner')) {
-        classesBlock = 'calculation__block-Corner';
-        render(classesBlock);
-      }
-    });
-  }
-
-  function matchBlocks(classBlock) {
-    var j = 0;
-    blockBar.children.forEach(function (element, i) {
-      if (element.classList == "calculation__block none ".concat(classBlock)) {
-        if (++j > 1) {
-          blockBar.children[i].remove();
+      function addOrRemoveBlockInBlockbar(numBlockBar, className) {
+        //Если кол. изначальных блоков в blockBar меньше чем 
+        //до начала перетаскивания (перятянули один блок в ячейки)
+        // - добавляем новый блок
+        if (numBlockBar > blockBar.children.length) {
+          blocks[numId] = new Block();
+          blocks[numId].render(className); //Если кол. изначальных блоков в blockBar больше чем 
+          //до начала перетаскивания (вернули один блок в blockBar)
+          // - удаляем последний блок
+        } else if (numBlockBar < blockBar.children.length) {
+          blockBar.lastChild.remove();
         }
       }
-    });
-  }
-
-  function ShowBlock(classBlock) {
-    var x = 0;
-    var hiddenBlock = 0;
-    var removeBlock = 0;
-    blockBar.children.forEach(function (element, i) {
-      if (element.classList == "calculation__block none ".concat(classBlock)) {
-        hiddenBlock = element;
-      } //проверяем на дублирующие блоки
-
-
-      if (element.classList.contains(classBlock) && !element.classList.contains('none')) {
-        //х - кол-во дублирующих блоков
-        x = x + 1; //Записываем лишний элемент
-
-        if (element.classList == "calculation__block ".concat(classBlock)) {
-          removeBlock = element;
-        }
-      }
-    });
-
-    if (x === 0) {
-      if (!hiddenBlock) {
-        render(classBlock);
-        blockBar.children.forEach(function (element) {
-          if (element.classList == "calculation__block ".concat(classBlock, " none")) {
-            element.classList.remove('none');
-          }
-        });
-      } else {
-        hiddenBlock.classList.remove('none');
-      }
-    } //Удаляем дублирующие блоки в блокбар
-
-
-    if (x === 2) {
-      removeBlock.classList.add('none');
     }
-  }
-
-  function ShowBlocks() {
-    ShowBlock('calculation__block-R');
-    ShowBlock('calculation__block-E');
-    ShowBlock('calculation__block-K');
-    ShowBlock('calculation__block-B');
-    ShowBlock('calculation__block-Corner');
-    console.log('Остановитесь!!');
-  }
-
-  function render(classesBlock) {
-    var newBlock = document.createElement('div');
-    newBlock.classList.add('calculation__block');
-    newBlock.classList.add('none');
-    newBlock.classList.add(classesBlock);
-    newBlock.setAttribute('id', numId);
-    writeNewBlock(classesBlock, numId, newBlock);
-    numId = numId + 1;
-    blockBar.append(newBlock);
-  }
-
-  function writeNewBlock(classesBlock, id, element) {
-    blocks[tx] = new Block();
-    blocks[tx].id = id;
-    blocks[tx].element = element;
-    blocks[tx].rotate = 0;
-    blocks[tx].voltage = 0;
-    blocks[tx].resistance = 0;
-
-    if (classesBlock == 'calculation__block-R') {
-      blocks[tx].type = 0;
-    }
-
-    if (classesBlock == 'calculation__block-E') {
-      blocks[tx].type = 1;
-    }
-
-    if (classesBlock == 'calculation__block-B') {
-      blocks[tx].type = 2;
-    }
-
-    if (classesBlock == 'calculation__block-K') {
-      blocks[tx].type = 3;
-    }
-
-    if (classesBlock == 'calculation__block-Corner') {
-      blocks[tx].type = 4;
-    }
-
-    console.log(blocks[tx]);
-    tx = tx + 1;
   } //Forms
 
 
@@ -7524,10 +7458,10 @@ var dragggrid = function dragggrid() {
       calcBlocksettings.classList.add('calculation-show');
       blockSettings.scrollTo(0, 0);
       target.classList.add('active');
-      console.log(target);
-      console.log('fbnh');
     }
-  }
+  } //----------------Получаем данные из окна настроек-------------//
+  //для сопостовления инпута и элемента используем Id
+
 
   function getValueFromForm() {
     blockSettings.addEventListener('input', function (event) {
@@ -7553,16 +7487,6 @@ var dragggrid = function dragggrid() {
           }
         });
       }
-      /*             if(target && target.id == inputFormKnots.id) {
-                      const dataForm = inputFormN.getAttribute('data-form');
-                      blocks.forEach((elem, i) => {
-                          if(elem.id == dataForm){
-                              elem.number = inputFormKnots.value;
-                              elem.element.textContent = inputFormKnots.value;   
-                          }
-                      }); 
-                  }  */
-
 
       if (target && target.id == inputFormN.id) {
         var _dataForm2 = inputFormN.getAttribute('data-form');
@@ -7584,7 +7508,8 @@ var dragggrid = function dragggrid() {
         });
       }
     });
-  }
+  } //-------------Удаление или вращение блока через кнопки в окне настроек--------//
+
 
   function GetRemoveOrRotateBlock() {
     blockSettings.addEventListener('click', function (event) {
@@ -7642,32 +7567,26 @@ var dragggrid = function dragggrid() {
         });
       }
     });
-  } // на будущее - собирает данные с формы выбора метода
+  } //Перебираем все ячейки и записываем все используемые блоки в массив
 
-
-  function GetFormSettings(target) {
-    if (target && target.classList.contains('btn__calculate')) {
-      formData = new FormData(formSettings);
-      console.log(formData.get('choiceMethod'));
-    }
-  }
 
   function getActiveBlocks() {
-    var ti = 0;
-    cell.forEach(function (element, i) {
+    var i = 0;
+    cell.forEach(function (element) {
       if (element.firstChild) {
-        blocks.forEach(function (el, x) {
+        blocks.forEach(function (el) {
           if (element.firstChild === el.element) {
             el.cell = element;
             el.x = +element.getAttribute('data-x');
             el.y = +element.getAttribute('data-y');
-            ActiveBlocks[ti] = el;
-            ti = ti + 1;
+            ActiveBlocks[i] = el;
+            ++i;
           }
         });
       }
     });
-  }
+  } //Удаляем старый ответ при необходимости пересчета
+
 
   function removeOldAnswerBlock(classBlock) {
     var removeBlock = document.querySelectorAll(classBlock);
@@ -7678,288 +7597,47 @@ var dragggrid = function dragggrid() {
       });
     }
   }
-  /* 
-      function trackScroll(scrollTo) {
-          let scrolled = window.pageYOffset;
-          let windowWidth = document.documentElement.clientWidth;
-          let windowHeight = document.documentElement.clientHeight;
-            if(windowHeight < 950 && windowWidth < 1200){
-              window.scrollTo({
-                  top: scrollTo,
-                  behavior: "smooth"
-              });
-              console.log(scrolled);
-              console.log(windowWidth);
-          }
-        } */
 
-
-  function SaveScheme() {
-    var branchs = [{
-      "elements": [{
-        "rotate": 2,
-        "type": 4,
-        "voltage": 0,
-        "resistance": 0,
-        "cell": {},
-        "id": 20,
-        "element": {},
-        "x": 0,
-        "y": 0
-      }, {
-        "rotate": 1,
-        "type": 3,
-        "voltage": 0,
-        "resistance": 0,
-        "cell": {},
-        "id": "3",
-        "element": {},
-        "number": "A",
-        "x": 0,
-        "y": 1
-      }, {
-        "rotate": 1,
-        "type": 4,
-        "voltage": 0,
-        "resistance": 0,
-        "cell": {},
-        "id": "4",
-        "element": {},
-        "x": 0,
-        "y": 2
-      }]
-    }, {
-      "elements": [{
-        "rotate": 3,
-        "type": 4,
-        "voltage": 0,
-        "resistance": 0,
-        "cell": {},
-        "id": 19,
-        "element": {},
-        "x": 4,
-        "y": 0
-      }, {
-        "rotate": 3,
-        "type": 3,
-        "voltage": 0,
-        "resistance": 0,
-        "cell": {},
-        "id": 10,
-        "element": {},
-        "number": "B",
-        "x": 4,
-        "y": 1
-      }, {
-        "rotate": 0,
-        "type": 4,
-        "voltage": 0,
-        "resistance": 0,
-        "cell": {},
-        "id": 18,
-        "element": {},
-        "x": 4,
-        "y": 2
-      }]
-    }, {
-      "elements": [{
-        "rotate": 2,
-        "type": 4,
-        "voltage": 0,
-        "resistance": 0,
-        "cell": {},
-        "id": 20,
-        "element": {},
-        "x": 0,
-        "y": 0
-      }, {
-        "rotate": 0,
-        "type": 0,
-        "voltage": 0,
-        "resistance": "10",
-        "cell": {},
-        "id": 12,
-        "element": {},
-        "number": "1",
-        "error": "",
-        "x": 1,
-        "y": 0
-      }, {
-        "rotate": 0,
-        "type": 1,
-        "voltage": "10",
-        "resistance": 0,
-        "cell": {},
-        "id": 15,
-        "element": {},
-        "number": "1",
-        "error": "",
-        "x": 2,
-        "y": 0
-      }, {
-        "rotate": 2,
-        "type": 1,
-        "voltage": "20",
-        "resistance": 0,
-        "cell": {},
-        "id": 17,
-        "element": {},
-        "number": "2",
-        "error": "",
-        "x": 3,
-        "y": 0
-      }, {
-        "rotate": 3,
-        "type": 4,
-        "voltage": 0,
-        "resistance": 0,
-        "cell": {},
-        "id": 19,
-        "element": {},
-        "x": 4,
-        "y": 0
-      }]
-    }, {
-      "elements": [{
-        "rotate": 1,
-        "type": 3,
-        "voltage": 0,
-        "resistance": 0,
-        "cell": {},
-        "id": "3",
-        "element": {},
-        "number": "A",
-        "x": 0,
-        "y": 1
-      }, {
-        "rotate": 0,
-        "type": 0,
-        "voltage": 0,
-        "resistance": "15",
-        "cell": {},
-        "id": "0",
-        "element": {},
-        "number": "2",
-        "error": "",
-        "x": 1,
-        "y": 1
-      }, {
-        "rotate": 0,
-        "type": 1,
-        "voltage": "20",
-        "resistance": 0,
-        "cell": {},
-        "id": "1",
-        "element": {},
-        "number": "3",
-        "error": "",
-        "x": 2,
-        "y": 1
-      }, {
-        "rotate": 0,
-        "type": 0,
-        "voltage": 0,
-        "resistance": "10",
-        "cell": {},
-        "id": 14,
-        "element": {},
-        "number": "3",
-        "error": "",
-        "x": 3,
-        "y": 1
-      }, {
-        "rotate": 3,
-        "type": 3,
-        "voltage": 0,
-        "resistance": 0,
-        "cell": {},
-        "id": 10,
-        "element": {},
-        "number": "B",
-        "x": 4,
-        "y": 1
-      }]
-    }, {
-      "elements": [{
-        "rotate": 1,
-        "type": 4,
-        "voltage": 0,
-        "resistance": 0,
-        "cell": {},
-        "id": "4",
-        "element": {},
-        "x": 0,
-        "y": 2
-      }, {
-        "rotate": 0,
-        "type": 0,
-        "voltage": 0,
-        "resistance": "5",
-        "cell": {},
-        "id": 13,
-        "element": {},
-        "number": "4",
-        "error": "",
-        "x": 1,
-        "y": 2
-      }, {
-        "rotate": 0,
-        "type": 0,
-        "voltage": 0,
-        "resistance": "10",
-        "cell": {},
-        "id": 22,
-        "element": {},
-        "number": "5",
-        "error": "",
-        "x": 3,
-        "y": 2
-      }, {
-        "rotate": 0,
-        "type": 4,
-        "voltage": 0,
-        "resistance": 0,
-        "cell": {},
-        "id": 18,
-        "element": {},
-        "x": 4,
-        "y": 2
-      }]
-    }];
-    return branchs;
-  }
-
-  GetNewBlock();
+  blockBar.addEventListener('mousedown', function (event) {
+    GetNewBlock(event);
+  });
+  blockBar.addEventListener('touchstart', function (event) {
+    GetNewBlock(event);
+  });
   container.addEventListener('mousedown', function (event) {
-    LimitingByDragging(event);
+    LimitingByDragging(event); //Если произошло нажатие на пустую ячейку, то закрываем окно параметров блока
+
+    if (event.target && event.target.classList.contains('grid__cell')) {
+      closeBlockSettings();
+    }
   });
   container.addEventListener('touchstart', function (event) {
-    LimitingByDragging(event);
-  });
-  setInterval(function () {
-    return ShowBlocks();
-  }, 100); //Не забыть остановить
+    LimitingByDragging(event); //Если произошло нажатие на пустую ячейку, то закрываем окно параметров блока
+
+    if (event.target && event.target.classList.contains('grid__cell')) {
+      closeBlockSettings();
+    }
+  }); // Получаем данные из формы настроек
 
   getValueFromForm();
   GetRemoveOrRotateBlock();
   formSettings.addEventListener('click', function (event) {
+    //--------Нажатие кнопки РАССЧИТАТЬ--------------------//
     event.preventDefault();
     var target = event.target;
 
     if (target && target.classList.contains('btn__calculate')) {
-      // на будущее - собирает данные с формы выбора метода
-      GetFormSettings(); //Удаялем старые ошибки (если они есть)
-
+      //Удаялем старые ошибки (если они есть)
       removeOldAnswerBlock('.Error__block'); //Удаляем старый ответ (если он есть)
 
       removeOldAnswerBlock('.answer__block');
       var promise1 = new Promise(function (resolve, reject) {
+        //Получаем активные блоки и передаём в модуль обработки getscheme
         getActiveBlocks();
         resolve(ActiveBlocks);
       }).then(function (value) {
         return new Promise(function (resolve, reject) {
-          console.log("\u0410\u043A\u0442\u0438\u0432\u043D\u044B\u0435 \u0431\u043B\u043E\u043A\u0438 ".concat(value));
-          scheme = Object(_getScheme__WEBPACK_IMPORTED_MODULE_14__["default"])(ActiveBlocks);
+          scheme = Object(_getScheme__WEBPACK_IMPORTED_MODULE_16__["default"])(ActiveBlocks);
 
           if (scheme == 'error') {
             reject();
@@ -7969,13 +7647,13 @@ var dragggrid = function dragggrid() {
         });
       }).then(function (scheme) {
         //Удаляем старый ответ (если он есть)
-        removeOldAnswerBlock('.answer__block');
-        Object(_calculationMethod__WEBPACK_IMPORTED_MODULE_15__["default"])(scheme);
+        removeOldAnswerBlock('.answer__block'); //Рассчитываем схему
+
+        Object(_calculationMethod__WEBPACK_IMPORTED_MODULE_17__["default"])(scheme);
         /* getCalculation( SaveScheme() ); */
       }).catch(function () {
         //Удаляем старый ответ (если он есть)
         removeOldAnswerBlock('.answer__block');
-        console.log('reject');
       });
     }
   });
@@ -8010,7 +7688,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-
+ //В данном модуле мы составляем из отдельных блоков ветки, а из веток электрическую схему
+// для определения начала и конца ветви мы ориентируемя на базовые углы 
 
 var getscheme = function getscheme(blocks) {
   var branchs = [],
@@ -8019,7 +7698,7 @@ var getscheme = function getscheme(blocks) {
       baseCorner = 0,
       baseRightCorner = 0,
       returnValue = 0,
-      jsonFile = 0;
+      jsonFile = 0; //класс для создания веток
 
   var Branch = function Branch(name) {
     _classCallCheck(this, Branch);
@@ -8030,15 +7709,8 @@ var getscheme = function getscheme(blocks) {
 
     this.elements = elements;
     this.name = name;
-  };
+  }; //Проверка введённых пареметров блока и его наименования
 
-  function getErrorBlock(text) {
-    var errorBlock;
-    errorBlock = document.createElement('p');
-    errorBlock.textContent = text;
-    errorBlock.classList.add('Error__block');
-    errorDiv.append(errorBlock);
-  }
 
   function getValidations(ActiveBlock) {
     if (ActiveBlock.type == 0) {
@@ -8078,10 +7750,13 @@ var getscheme = function getscheme(blocks) {
     }
 
     return error;
-  }
+  } // Получаем и проверяем ветви 
 
-  function getValidationsPostions(ActiveBlocks) {
-    var i = 1;
+
+  function getValidBranch(ActiveBlocks) {
+    var i = 1; //НАходим baseCorner в верхний левый угол в котором начинается первая ветвь
+    //НАходим baseRightCorner в верхний правый угол в котором заканичивается первая ветвь
+
     ActiveBlocks.forEach(function (element) {
       if (element.type === 4 && element.rotate === 2) {
         baseCorner = element;
@@ -8100,19 +7775,21 @@ var getscheme = function getscheme(blocks) {
     if (getRightKnots() == 'error') {
       console.log("\u041E\u0448\u0438\u0431\u043A\u0430 getRightKnots");
       return 'error';
-    }
+    } //Получаем ветви
+
 
     ActiveBlocks.forEach(function (element) {
       if (element.type === 3) {
         if (element.rotate === 1) {
-          i = i + 1;
+          ++i;
 
           if (getBranchLeftToRight(i, element) == 'error') {
             console.log("\u041E\u0448\u0438\u0431\u043A\u0430 getBranchLeftToRight");
             return 'error';
           }
         }
-      }
+      } //Получаем ветви
+
 
       if (element.type === 4) {
         if (element.rotate === 1 || element.rotate === 2) {
@@ -8136,7 +7813,18 @@ var getscheme = function getscheme(blocks) {
     console.log(jsonFile); /// 
 
     return branchs;
-  }
+  } //Функция по вставки ошибки о неправлильном соединени блоков
+
+
+  function getErrorBlock(text) {
+    var errorBlock;
+    errorBlock = document.createElement('p');
+    errorBlock.textContent = text;
+    errorBlock.classList.add('Error__block');
+    errorDiv.append(errorBlock);
+  } //Получам первую строку (ветвь) схемы 
+  //Начиная от верхнего левого угла
+
 
   function getLeftKnots() {
     branchs[0] = new Branch();
@@ -8197,7 +7885,9 @@ var getscheme = function getscheme(blocks) {
     }
 
     console.log(branchs[0].elements);
-  }
+  } //Получам первую строку (ветвь) схемы от которое являются началами ветвей
+  //Начиная от верхнего левого угла
+
 
   function getRightKnots() {
     branchs[1] = new Branch();
@@ -8289,8 +7979,6 @@ var getscheme = function getscheme(blocks) {
       }
 
       if (!nextBlock) {
-        /*                 jBlock.error = 'connection';
-                        jBlock.getErrorMessage(); */
         getErrorMessagePosition(jBlock.number);
         return 'error';
       }
@@ -8309,7 +7997,8 @@ var getscheme = function getscheme(blocks) {
       }
     });
     return returnBlock;
-  }
+  } // Проверяем на ошибки позиционирования
+
 
   function getErrorMessagePosition(nextBlock, customMessage) {
     var defaultMessage = "\u041E\u0448\u0438\u0431\u043A\u0430! \u0421\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u0435 \u0432\u0441\u0435 \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B \u0438\u043B\u0438 \u0443\u0434\u0430\u043B\u0438\u0442\u0435 \u043D\u0435\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u044B\u0435:";
@@ -8322,7 +8011,8 @@ var getscheme = function getscheme(blocks) {
 
     error = error + 1;
     return error;
-  }
+  } //Проверяем на наличие необходимого минимума элементов
+
 
   function getValidationsBranch(branchs) {
     var E = 0,
@@ -8366,7 +8056,7 @@ var getscheme = function getscheme(blocks) {
       });
     });
     console.log(branchs);
-  } //Проверка на записсынные ошибки в блоках
+  } //Проверка на записанные ошибки в блоках
 
 
   blocks.forEach(function (element) {
@@ -8377,7 +8067,7 @@ var getscheme = function getscheme(blocks) {
     //if(error === ''){   игнор ошибок
     returnValue = 'error';
   } else {
-    if (getValidationsPostions(blocks) === 'error') {
+    if (getValidBranch(blocks) === 'error') {
       Object(_scrollTo__WEBPACK_IMPORTED_MODULE_4__["default"])(errorDiv.clientHeight + 80);
       return 'error';
     } else {
@@ -8481,7 +8171,6 @@ var trackScroll = function trackScroll(scrollTo) {
   if (windowHeight < 950 && windowWidth < 1200) {
     if (windowHeight < 665) {
       scrollTo = 665 - windowHeight + scrollTo;
-      console.log(scrollTo);
     }
 
     window.scrollTo({

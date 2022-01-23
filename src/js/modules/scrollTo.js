@@ -7,7 +7,6 @@ const trackScroll = (scrollTo) => {
     if(windowHeight < 950 && windowWidth < 1200){
         if(windowHeight < 665){
             scrollTo = 665 - windowHeight + scrollTo;
-            console.log(scrollTo);
         }
         window.scrollTo({
             top: scrollTo,
