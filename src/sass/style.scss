@@ -1,14 +1,14 @@
-@import './blocks/helpers/variables';
-@import './blocks/base/electrikam';
-/* @import './blocks/header/header'; */
-/* @import './blocks/media/media'; */
+@import './blocks/helpers/variables.scss';
+@import './blocks/base/fonts';
+@import './blocks/base/electrikam.scss';
+@import './blocks/base/general';
+
 @import './blocks/calculation/calculation';
 @import './blocks/calculation/blocksettings';
 @import './blocks/calculation/answer';
-@import './blocks/base/fonts';
-@import './blocks/base/general';
-/* @import './blocks/base/typography'; */
-/* @import './blocks/import/normalize'; */
+
+
+
 
 .sidebar{
     overflow-y: auto;

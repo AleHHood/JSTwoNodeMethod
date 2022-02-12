@@ -1,29 +1,5 @@
 @charset "UTF-8";
 
-/* $main-color: #0071ce;
-$color-text:rgb(33,37,41);
-$bg-color:#f7f7f7;
-$active-color:#d06c6c; //цвет выделения активной позиции в сайдбаре (второй гдавный цвет в офрмлении)
- */
-
-/* $color-text:rgb(33,37,41); */
-
-/* $main-color: #466791;
-$bg-color:#F5F5F5;
-$active-color:#EB4C17; //цвет выделения активной позиции в сайдбаре (второй гдавный цвет в офрмлении) */
-
-/* $main-color: #007CB7;
-$bg-color:#D1E7F2;
-$active-color:#FF6633; //цвет выделения активной позиции в сайдбаре (второй гдавный цвет в офрмлении) */
-
-/* $main-color: #64c4d0;
-$bg-color:#e4e0e4;
-$active-color:#c42034; */
-
-/* $bg-color: #f0f0f0; */
-
-/* $main-color: #007bff; */
-
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 /* Document
@@ -404,61 +380,6 @@ template {
   display: none;
 }
 
-@font-face {
-  font-family: 'Roboto';
-  font-display: swap;
-  src: local("Roboto Light"), local("Roboto-Light"), url("../fonts/Robotolight.woff2") format("woff2"), url("../fonts/Robotolight.woff") format("woff"), url("../fonts/../fonts/Robotolight.ttf") format("truetype");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-display: swap;
-  src: local("Roboto Light Italic"), local("Roboto-LightItalic"), url("../fonts/Robotolightitalic.woff2") format("woff2"), url("../fonts/Robotolightitalic.woff") format("woff"), url("../fonts/../fonts/Robotolightitalic.ttf") format("truetype");
-  font-weight: 300;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-display: swap;
-  src: local("Roboto"), local("Roboto-Regular"), url("../fonts/Roboto.woff2") format("woff2"), url("../fonts/Roboto.woff") format("woff"), url("../fonts/Roboto.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-display: swap;
-  src: local("Roboto Italic"), local("Roboto-Italic"), url("../fonts/Robotoitalic.woff2") format("woff2"), url("../fonts/Robotoitalic.woff") format("woff"), url("Robotoitalic.ttf") format("truetype");
-  font-weight: 400;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-display: swap;
-  src: local("Roboto Bold"), local("Roboto-Bold"), url("../fonts/Robotobold.woff2") format("woff2"), url("../fonts/Robotobold.woff") format("woff"), url("../fonts/Robotobold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-display: swap;
-  src: local("Roboto Bold Italic"), local("../fonts/Roboto-BoldItalic"), url("../fonts/Robotobolditalic.woff2") format("woff2"), url("../fonts/Robotobolditalic.woff") format("woff"), url("../fonts/Robotobolditalic.ttf") format("truetype");
-  font-weight: 700;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'icomoon';
-  src: url("../fonts/icomoon.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: block;
-}
 
 [class^="icon-"],
 [class*=" icon-"] {

@@ -287,21 +287,21 @@ const dragggrid = () => {
                 }
             }
             window.requestAnimationFrame(anim);
+        }
+    }
 
-            function addOrRemoveBlockInBlockbar(numBlockBar, className) {
-                //Если кол. изначальных блоков в blockBar меньше чем 
-                //до начала перетаскивания (перятянули один блок в ячейки)
-                // - добавляем новый блок
-                if (numBlockBar > blockBar.children.length) {
-                    blocks[numId] = new Block();
-                    blocks[numId].render(className);
-                    //Если кол. изначальных блоков в blockBar больше чем 
-                    //до начала перетаскивания (вернули один блок в blockBar)
-                    // - удаляем последний блок
-                } else if (numBlockBar < blockBar.children.length) {
-                    blockBar.lastChild.remove();
-                }
-            }
+    function addOrRemoveBlockInBlockbar(numBlockBar, className) {
+        //Если кол. изначальных блоков в blockBar меньше чем 
+        //до начала перетаскивания (перятянули один блок в ячейки)
+        // - добавляем новый блок
+        if (numBlockBar > blockBar.children.length) {
+            blocks[numId] = new Block();
+            blocks[numId].render(className);
+            //Если кол. изначальных блоков в blockBar больше чем 
+            //до начала перетаскивания (вернули один блок в blockBar)
+            // - удаляем последний блок
+        } else if (numBlockBar < blockBar.children.length) {
+            blockBar.lastChild.remove();
         }
     }
 

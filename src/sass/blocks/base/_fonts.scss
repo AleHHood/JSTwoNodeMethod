@@ -1,28 +1,28 @@
 @font-face {
     font-family: 'Roboto';
     font-display: swap;
-    src: local('Roboto Light'), local('Roboto-Light'), url('../fonts/Robotolight.woff2') format('woff2'), url('../fonts/Robotolight.woff') format('woff'), url('../fonts/../fonts/Robotolight.ttf') format('truetype');
+    src: local('Roboto Light'), local('Roboto-Light'), url('.././fonts/Robotolight.woff2') format('woff2');
     font-weight: 300;
     font-style: normal;
 }
 @font-face {
     font-family: 'Roboto';
     font-display: swap;
-    src: local('Roboto Light Italic'), local('Roboto-LightItalic'), url('../fonts/Robotolightitalic.woff2') format('woff2'), url('../fonts/Robotolightitalic.woff') format('woff'), url('../fonts/../fonts/Robotolightitalic.ttf') format('truetype');
+    src: local('Roboto Light Italic'), local('Roboto-LightItalic'), url('.././fonts/Robotolightitalic.woff2') format('woff2');
     font-weight: 300;
     font-style: italic;
 }
 @font-face {
     font-family: 'Roboto';
     font-display: swap;
-    src: local('Roboto'), local('Roboto-Regular'), url('../fonts/Roboto.woff2') format('woff2'), url('../fonts/Roboto.woff') format('woff'), url('../fonts/Roboto.ttf') format('truetype');
+    src: local('Roboto'), local('Roboto-Regular'), url('.././fonts/Roboto.woff2') format('woff2'), url('.././fonts/Roboto.woff') format('woff');
     font-weight: 400;
     font-style: normal;
 }
 @font-face {
     font-family: 'Roboto';
     font-display: swap;
-    src: local('Roboto Italic'), local('Roboto-Italic'), url('../fonts/Robotoitalic.woff2') format('woff2'), url('../fonts/Robotoitalic.woff') format('woff'), url('Robotoitalic.ttf') format('truetype');
+    src: local('Roboto Italic'), local('Roboto-Italic'), url('.././fonts/Robotoitalic.woff2') format('woff2'), url('.././fonts/Robotoitalic.woff') format('woff');
     font-weight: 400;
     font-style: italic;
 }
@@ -30,20 +30,20 @@
 @font-face {
     font-family: 'Roboto';
     font-display: swap;
-    src: local('Roboto Bold'), local('Roboto-Bold'), url('../fonts/Robotobold.woff2') format('woff2'), url('../fonts/Robotobold.woff') format('woff'), url('../fonts/Robotobold.ttf') format('truetype');
+    src: local('Roboto Bold'), local('Roboto-Bold'), url('.././fonts/Robotobold.woff2') format('woff2'), url('.././fonts/Robotobold.woff') format('woff');
     font-weight: 700;
     font-style: normal;
 }
 @font-face {
     font-family: 'Roboto';
     font-display: swap;
-    src: local('Roboto Bold Italic'), local('../fonts/Roboto-BoldItalic'), url('../fonts/Robotobolditalic.woff2') format('woff2'), url('../fonts/Robotobolditalic.woff') format('woff'), url('../fonts/Robotobolditalic.ttf') format('truetype');
+    src: local('Roboto Bold Italic'), local('.././fonts/Roboto-BoldItalic'), url('.././fonts/Robotobolditalic.woff2') format('woff2'), url('.././fonts/Robotobolditalic.woff') format('woff');
     font-weight: 700;
     font-style: italic;
 }
 @font-face {
     font-family: 'icomoon';
-    src:  url('../fonts/icomoon.woff?yo9rx9') format('woff');
+    src:  url('.././fonts/icomoon.woff?yo9rx9') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: block;

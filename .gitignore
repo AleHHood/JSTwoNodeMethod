@@ -9,6 +9,7 @@
 # production
 /build
 dist/
+/dist-Web
 
 # misc
 .DS_Store

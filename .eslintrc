@@ -1,0 +1,21 @@
+{
+    "parser": "@babel/eslint-parser",
+    "rules": {
+      "no-unused-vars": "warn"
+    },
+    "parserOptions" : { 
+        "sourceType" : "module" , 
+        "allowImportExportEverywhere" : false , 
+        "ecmaFeatures" : { 
+          "globalReturn" : false  
+        },
+        "requireConfigFile" : false
+    },
+    "env": {
+      "es6": true,
+      "browser": true
+    },
+    "extends": [
+      "eslint:recommended"
+    ]
+  }
