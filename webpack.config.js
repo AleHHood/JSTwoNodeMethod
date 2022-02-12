@@ -15,7 +15,7 @@ module.exports = {
     entry: ['@babel/polyfill','./js/main.js'],
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist-Web'),
+        path: path.resolve(__dirname, 'dist'),
     },
     resolve: {
     extensions: ['.js', '.json', '.png'],
@@ -39,7 +39,7 @@ module.exports = {
             patterns: [
             {
                 from: path.resolve(__dirname, "src/img/favicon/favicon.png"),
-                to: path.resolve(__dirname, "dist-Web/img/favicon")
+                to: path.resolve(__dirname, "dist/img/favicon")
             }
         ]}),
         new MiniCssExtractPlugin({

@@ -309,7 +309,7 @@ const dragggrid = () => {
 
     function getForm(target) {
         if (target && target.classList.contains('calculation__block')) {
-            blocks.forEach((elem, i) => {
+            blocks.forEach(elem => {
                 if (elem.element == target) {
                     elem.getParametrForm();
                     elem.getErrorMessage();
@@ -329,7 +329,7 @@ const dragggrid = () => {
             const target = event.target;
             if (target && target.id == inputFormR.id) {
                 const dataForm = inputFormN.getAttribute('data-form');
-                blocks.forEach((elem, i) => {
+                blocks.forEach(elem => {
                     if (elem.id == dataForm) {
                         elem.resistance = inputFormR.value;
                         elem.Validation(inputFormR, notifyR);
@@ -338,7 +338,7 @@ const dragggrid = () => {
             }
             if (target && target.id == inputFormE.id) {
                 const dataForm = inputFormN.getAttribute('data-form');
-                blocks.forEach((elem, i) => {
+                blocks.forEach(elem => {
                     if (elem.id == dataForm) {
                         elem.voltage = inputFormE.value;
                         elem.Validation(inputFormE, notifyE);
@@ -348,7 +348,7 @@ const dragggrid = () => {
 
             if (target && target.id == inputFormN.id) {
                 const dataForm = inputFormN.getAttribute('data-form');
-                blocks.forEach((elem, i) => {
+                blocks.forEach(elem => {
                     if (elem.id == dataForm) {
                         elem.Validation(inputFormN, notifyN);
                         switch (elem.type) {
@@ -518,11 +518,11 @@ const dragggrid = () => {
             removeOldAnswerBlock('.answer__block');
 
 
-            const promise1 = new Promise((resolve, reject) => {
+            new Promise((resolve) => {
                 //Получаем активные блоки и передаём в модуль обработки getscheme
                 getActiveBlocks();
                 resolve(ActiveBlocks);
-            }).then(value => {
+            }).then(() => {
                 return new Promise((resolve, reject) => {
                     scheme = getscheme(ActiveBlocks);
 

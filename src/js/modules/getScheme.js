@@ -54,7 +54,7 @@ const getscheme = (blocks) => {
                 error = error + 1;
             }
         } else {
-            blocks.forEach((element, i) => {
+            blocks.forEach(element => {
                 if (
                     (element.type === ActiveBlock.type) &&
                     (element.number === ActiveBlock.number)
