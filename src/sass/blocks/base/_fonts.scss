@@ -1,102 +1,112 @@
 @font-face {
-    font-family: 'Roboto';
-    font-display: swap;
-    src: local('Roboto Light'), local('Roboto-Light'), url('.././fonts/Robotolight.woff2') format('woff2');
-    font-weight: 300;
-    font-style: normal;
+  font-family: "Roboto";
+  font-display: swap;
+  src: local("Roboto Light"), local("Roboto-Light"),
+    url(".././fonts/Robotolight.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
 }
 @font-face {
-    font-family: 'Roboto';
-    font-display: swap;
-    src: local('Roboto Light Italic'), local('Roboto-LightItalic'), url('.././fonts/Robotolightitalic.woff2') format('woff2');
-    font-weight: 300;
-    font-style: italic;
+  font-family: "Roboto";
+  font-display: swap;
+  src: local("Roboto Light Italic"), local("Roboto-LightItalic"),
+    url(".././fonts/Robotolightitalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
 }
 @font-face {
-    font-family: 'Roboto';
-    font-display: swap;
-    src: local('Roboto'), local('Roboto-Regular'), url('.././fonts/Roboto.woff2') format('woff2'), url('.././fonts/Roboto.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
+  font-family: "Roboto";
+  font-display: swap;
+  src: local("Roboto"), local("Roboto-Regular"),
+    url(".././fonts/Roboto.woff2") format("woff2"),
+    url(".././fonts/Roboto.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
 }
 @font-face {
-    font-family: 'Roboto';
-    font-display: swap;
-    src: local('Roboto Italic'), local('Roboto-Italic'), url('.././fonts/Robotoitalic.woff2') format('woff2'), url('.././fonts/Robotoitalic.woff') format('woff');
-    font-weight: 400;
-    font-style: italic;
+  font-family: "Roboto";
+  font-display: swap;
+  src: local("Roboto Italic"), local("Roboto-Italic"),
+    url(".././fonts/Robotoitalic.woff2") format("woff2"),
+    url(".././fonts/Robotoitalic.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Roboto';
-    font-display: swap;
-    src: local('Roboto Bold'), local('Roboto-Bold'), url('.././fonts/Robotobold.woff2') format('woff2'), url('.././fonts/Robotobold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
+  font-family: "Roboto";
+  font-display: swap;
+  src: local("Roboto Bold"), local("Roboto-Bold"),
+    url(".././fonts/Robotobold.woff2") format("woff2"),
+    url(".././fonts/Robotobold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
 }
 @font-face {
-    font-family: 'Roboto';
-    font-display: swap;
-    src: local('Roboto Bold Italic'), local('.././fonts/Roboto-BoldItalic'), url('.././fonts/Robotobolditalic.woff2') format('woff2'), url('.././fonts/Robotobolditalic.woff') format('woff');
-    font-weight: 700;
-    font-style: italic;
+  font-family: "Roboto";
+  font-display: swap;
+  src: local("Roboto Bold Italic"), local(".././fonts/Roboto-BoldItalic"),
+    url(".././fonts/Robotobolditalic.woff2") format("woff2"),
+    url(".././fonts/Robotobolditalic.woff") format("woff");
+  font-weight: 700;
+  font-style: italic;
 }
 @font-face {
-    font-family: 'icomoon';
-    src:  url('.././fonts/icomoon.woff?yo9rx9') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: block;
-  }
-  
-  [class^="icon-"], [class*=" icon-"] {
-    /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'icomoon' !important;
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-  
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-  .icon-telegram:before {
-    content: "\e900";
-    color: #fff;
-    font-size: 22px;
-  }
-  .icon-mail-dot-ru:before {
-    content: "\e901";
-    color: #fff;
-    font-size: 22px;
-  }
-  .icon-facebook:before {
-    content: "\e903";
-    color: #fff;
-    font-size: 22px;
-  }
-  .icon-vk:before {
-    content: "\e904";
-    color: #fff;
-    font-size: 22px;
-  }
-  .icon-instagram:before {
-    content: "\e905";
-    color: #fff;
-    font-size: 22px;
-  }
-  .icon-chevron-up:before {
-    content: "\e902";
-  }
+  font-family: "icomoon";
+  src: url(".././fonts/icomoon.woff?yo9rx9") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
 
-  .icon-bubbles3:before {
-    content: "\e96f";
-  }
-  .icon-circle-up:before {
-    content: "\ea41";
-  }
-  
+[class^="icon-"],
+[class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icomoon" !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-telegram:before {
+  content: "\e900";
+  color: #fff;
+  font-size: 22px;
+}
+.icon-mail-dot-ru:before {
+  content: "\e901";
+  color: #fff;
+  font-size: 22px;
+}
+.icon-facebook:before {
+  content: "\e903";
+  color: #fff;
+  font-size: 22px;
+}
+.icon-vk:before {
+  content: "\e904";
+  color: #fff;
+  font-size: 22px;
+}
+.icon-instagram:before {
+  content: "\e905";
+  color: #fff;
+  font-size: 22px;
+}
+.icon-chevron-up:before {
+  content: "\e902";
+}
+
+.icon-bubbles3:before {
+  content: "\e96f";
+}
+.icon-circle-up:before {
+  content: "\ea41";
+}

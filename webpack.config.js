@@ -4,6 +4,7 @@ const {CleanWebpackPlugin} = require("clean-webpack-plugin")
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
+const PrettierPlugin = require("prettier-webpack-plugin")
 
 const isDev = process.env.NODE_ENV === "development"
 console.log("IS DEV:", isDev);
@@ -27,6 +28,7 @@ module.exports = {
     devServer: {
         port: 4201
     },
+    devtool: isDev ? 'source-map' : false,
     plugins: [
         new HtmlWebpackPlugin({
             template: './index.html',
@@ -38,14 +40,15 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
             {
-                from: path.resolve(__dirname, "src/img/favicon/favicon.png"),
-                to: path.resolve(__dirname, "dist/img/favicon")
+                from: path.resolve(__dirname, "src/img/"),
+                to: path.resolve(__dirname, "dist/img/")
             }
         ]}),
         new MiniCssExtractPlugin({
             filename: '[name].style.css'
         }),
-        new ESLintPlugin()
+        new ESLintPlugin(),
+        new PrettierPlugin()
     ],
     module: {
         rules: [
@@ -61,15 +64,15 @@ module.exports = {
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
-                  isDev ? "style-loader" : MiniCssExtractPlugin.loader,
+                  MiniCssExtractPlugin.loader,
                   "css-loader",
                   "postcss-loader",
                   "sass-loader",
                 ],
             },
-            {
+/*             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
-              },
+              }, */
             
             {
                 test: /\.m?js$/,

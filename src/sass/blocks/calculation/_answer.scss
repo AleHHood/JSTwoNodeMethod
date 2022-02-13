@@ -1,49 +1,49 @@
-.fraction{
-    display: inline-block;
-    text-align: center;   
-    line-height: 1.2rem;
-    vertical-align: -0.6rem;
-    &__bottom{
-        border-top: 1px solid #000;
-        display: block;
-    }
+.fraction {
+  display: inline-block;
+  text-align: center;
+  line-height: 1.2rem;
+  vertical-align: -0.6rem;
+  &__bottom {
+    border-top: 1px solid #000;
+    display: block;
+  }
 }
 
-.answer, .error{
-    text-align: justify;
-    padding: 30px 15px 10px 15px;
+.answer,
+.error {
+  text-align: justify;
+  padding: 30px 15px 10px 15px;
+  margin: 0 auto;
+  max-width: 100%;
+  box-sizing: border-box;
+  &__block {
+    margin-top: 2rem;
+  }
+
+  .tac {
+    text-align: center;
+  }
+}
+
+@media (min-width: 560px) {
+  .answer,
+  .error {
+    padding: 30px 30px 5px 30px;
+    max-width: 850px;
     margin: 0 auto;
-    max-width: 100%;
-    box-sizing: border-box;
-    &__block{
-        margin-top: 2rem;
-    }
-
-    .tac{
-        text-align: center;
-    }
+  }
 }
 
-@media (min-width: 560px){
-    .answer, .error{
-        padding: 30px 30px 5px 30px;
-        max-width: 850px;
-        margin: 0 auto;
+@media (min-width: 1200px) {
+  .answer,
+  .error {
+    text-align: justify;
+    padding: 30px 48px 5px 40px;
+    margin: 0 auto;
+    width: 780px;
+
+    &__block {
+      margin-top: 2rem;
     }
+  }
 }
-
-
-@media (min-width: 1200px){
- 
-    .answer, .error{
-        text-align: justify;
-        padding: 30px 48px 5px 40px;
-        margin: 0 auto;
-        width: 780px;
-    
-        &__block{
-            margin-top: 2rem;
-        }
-    }
-}
-
