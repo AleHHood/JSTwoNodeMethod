@@ -3,6 +3,7 @@
 import dragula from "dragula";
 import getscheme from "./getScheme";
 import getCalculation from "./calculationMethod";
+import validForm from "./validForm";
 
 const dragggrid = () => {
   const blockBar = document.querySelector(".calculation__blockBar"),
@@ -32,29 +33,119 @@ const dragggrid = () => {
   //Класс для создание перетаскиваемых блоков (резисторы, эдс, ветви, узлы)
   class Block {
     constructor(
-      rotate = 0,
-      type,
-      voltage = 0,
-      resistance = 0,
-      cell,
-      id,
-      element,
-      number,
-      error,
-      x,
-      y
+      _rotate = 0,
+      _type,
+      _voltage = 0,
+      _resistance = 0,
+      _id,
+      _element,
+      _number = null,
+      _error,
+      _x,
+      _y
     ) {
-      this.rotate = rotate; // 0 - горизонтальное пол. 1 - вертикальное
-      this.type = type; // 0=R, 1=E, 2=B, 3=K, 4=Corner;
-      this.voltage = voltage;
-      this.resistance = resistance;
-      this.cell = cell; //ячейка сетки в котором находится блок
-      this.id = id;
-      this.element = element;
-      this.number = number; //номер элемента (присваевается пользователем)
-      this.error = error; //Запись ошибки при некорректном заполнении юзером
-      this.x = x; //координат по х (номер столбца ячейки)
-      this.y = y; //координатат по y(номер строки ячейки)
+      this._rotate = _rotate; // 0 - горизонтальное пол. 1 - вертикальное
+      this._type = _type; // 0=R, 1=E, 2=B, 3=K, 4=Corner;
+      this._voltage = _voltage;
+      this._resistance = _resistance;
+      this._id = _id;
+      this._element = _element;
+      this._number = _number; //номер элемента (присваевается пользователем)
+      this._error = _error; //Запись ошибки при некорректном заполнении юзером
+      this._x = _x; //координат по х (номер столбца ячейки)
+      this._y = _y; //координатат по y(номер строки ячейки)
+    }
+
+    get rotate() {
+      return this._rotate;
+    }
+
+    set rotate(newRotate) {
+      this._rotate = newRotate;
+    }
+
+    get type() {
+      return this._type;
+    }
+
+    set type(newType) {
+      this._type = newType;
+    }
+
+    get voltage() {
+      return this._voltage;
+    }
+
+    set voltage(newVoltage) {
+      this.validation(newVoltage, "error", notifyE);
+      this._voltage = newVoltage;
+    }
+
+    get resistance() {
+      return this._resistance;
+    }
+
+    set resistance(newResistance) {
+      this.validation(newResistance, "error", notifyR);
+      this._resistance = newResistance;
+    }
+
+    get id() {
+      return this._id;
+    }
+
+    set id(newId) {
+      this._id = newId;
+    }
+
+    get element() {
+      return this._element;
+    }
+
+    set element(newElement) {
+      this._element = newElement;
+    }
+
+    get number() {
+      return this._number;
+    }
+
+    set number(newNumber) {
+      this.validation(newNumber, "errorNumber", notifyN);
+      this._number = newNumber;
+      switch (this._type) {
+        case 0:
+          this._element.textContent = `R${this._number}`;
+          break;
+
+        case 1:
+          this._element.textContent = `E${this._number}`;
+          break;
+      }
+    }
+
+    get error() {
+      return this._error;
+    }
+
+    set error(newError) {
+      this._error = newError;
+    }
+
+    get x() {
+      return this._x;
+    }
+
+    set x(newX) {
+      this._x = newX;
+    }
+
+    get y() {
+      return this._y;
+    }
+
+    set y(newY) {
+      this._y = newY;
     }
 
     render(classesBlock) {
@@ -121,69 +212,14 @@ const dragggrid = () => {
       inputFormN.setAttribute("data-form", this.id);
       inputFormN.value = this.number;
     }
-    getErrorMessage() {
-      let tNotify = 0;
-      notifyN.style.display = "none";
 
-      switch (this.type) {
-        case 0:
-          tNotify = notifyR;
-          tNotify.style.display = "none";
-          break;
-        case 1:
-          tNotify = notifyE;
-          tNotify.style.display = "none";
-          break;
-      }
-      switch (this.error) {
-        case "error":
-          tNotify.style.display = "block";
-          tNotify.textContent = `Введите значение от 0 до 1000`;
-
-          this.element.style.backgroundColor = "pink";
-          break;
-
-        case "errorNumber":
-          notifyN.style.display = "block";
-          notifyN.textContent = `Введите значение от 0 до 1000`;
-
-          this.element.style.backgroundColor = "pink";
-          break;
-
-        case "number":
-          notifyN.style.display = "block";
-          notifyN.textContent = `Номера элементов совпадают`;
-
-          this.element.style.backgroundColor = "pink";
-          break;
-
-        case "connection": {
-          this.element.style.backgroundColor = "pink";
-          break;
-        }
-
-        default:
-          break;
-      }
-    }
-    Validation(InputForm, el) {
-      if (
-        (InputForm.value >= 1000 || InputForm.value <= 0) &&
-        InputForm !== inputFormN
-      ) {
-        this.error = "error";
-        this.getErrorMessage();
+    validation(value, errorText, el) {
+      if (value >= 1000 || value <= 0) {
+        this.error = errorText;
       } else {
-        if (InputForm.value < 0 || InputForm.value >= 1000) {
-          this.error = "errorNumber";
-          this.getErrorMessage();
-          this.number = inputFormN.value;
-        } else {
-          el.style.display = "none";
-          this.number = inputFormN.value;
-          this.error = "";
-          this.element.style.backgroundColor = "#fff";
-        }
+        el.style.display = "none";
+        this.error = "";
+        this.element.style.backgroundColor = "#fff";
       }
     }
   }
@@ -193,8 +229,6 @@ const dragggrid = () => {
   blockHome.forEach((element, i) => {
     blocks[i] = new Block();
     blocks[i].rotate = 0;
-    blocks[i].voltage = 0;
-    blocks[i].resistance = 0;
     blocks[i].type = +element.id;
     blocks[i].id = element.id;
     blocks[i].element = element;
@@ -307,7 +341,7 @@ const dragggrid = () => {
       blocks.forEach((elem) => {
         if (elem.element == target) {
           elem.getParametrForm();
-          elem.getErrorMessage();
+          getErrorMessage(elem);
         }
       });
       blockSettings.classList.add("blocksettings-show");
@@ -326,8 +360,10 @@ const dragggrid = () => {
         const dataForm = inputFormN.getAttribute("data-form");
         blocks.forEach((elem) => {
           if (elem.id == dataForm) {
+            validForm(inputFormR);
             elem.resistance = inputFormR.value;
-            elem.Validation(inputFormR, notifyR);
+
+            getErrorMessage(elem);
           }
         });
       }
@@ -335,8 +371,9 @@ const dragggrid = () => {
         const dataForm = inputFormN.getAttribute("data-form");
         blocks.forEach((elem) => {
           if (elem.id == dataForm) {
+            validForm(inputFormE);
             elem.voltage = inputFormE.value;
-            elem.Validation(inputFormE, notifyE);
+            getErrorMessage(elem);
           }
         });
       }
@@ -345,8 +382,11 @@ const dragggrid = () => {
         const dataForm = inputFormN.getAttribute("data-form");
         blocks.forEach((elem) => {
           if (elem.id == dataForm) {
-            elem.Validation(inputFormN, notifyN);
-            switch (elem.type) {
+            validForm(inputFormN, "inputN");
+            elem.number = inputFormN.value;
+            getErrorMessage(elem);
+
+            /*             switch (elem.type) {
               case 0:
                 elem.element.textContent = `R${elem.number}`;
                 break;
@@ -354,11 +394,38 @@ const dragggrid = () => {
               case 1:
                 elem.element.textContent = `E${elem.number}`;
                 break;
-            }
+            } */
           }
         });
       }
     });
+  }
+
+  //------------------Выводим сообщение об ошибки при некорректных данных в блоке-----//
+  function getErrorMessage(block) {
+    let tNotify = null;
+    notifyE.style.display = "none";
+    notifyR.style.display = "none";
+    notifyN.style.display = "none";
+
+    if (block.error === "error") {
+      switch (block.type) {
+        case 0:
+          tNotify = notifyR;
+          break;
+        case 1:
+          tNotify = notifyE;
+          break;
+      }
+    } else if (block.error === "errorNumber") {
+      tNotify = notifyN;
+    }
+
+    if (tNotify) {
+      tNotify.style.display = "block";
+      tNotify.textContent = `Введите значение больше 0`;
+      block.element.style.backgroundColor = "pink";
+    }
   }
 
   //-------------Удаление или вращение блока через кнопки в окне настроек--------//
@@ -428,7 +495,19 @@ const dragggrid = () => {
       if (element.firstChild) {
         blocks.forEach((el) => {
           if (element.firstChild === el.element) {
-            el.cell = element;
+            //Если имя блока некорректно - отправляем ошибку
+            if (!el._number && el.type <= 1) {
+              el.error = "errorNumber";
+              getErrorMessage(el);
+              //Если имя блока корректно, но есть ошибка в значении сопротивления или напряжения - отправляем ошибку
+            } else if (
+              (!el.resistance && el.type == 0) ||
+              (!el.voltage && el.type == 1)
+            ) {
+              el.error = "error";
+              getErrorMessage(el);
+            }
+
             el.x = +element.getAttribute("data-x");
             el.y = +element.getAttribute("data-y");
             ActiveBlocks[i] = el;

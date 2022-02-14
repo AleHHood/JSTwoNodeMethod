@@ -21,7 +21,34 @@ const getscheme = (blocks) => {
 
   //Проверка введённых пареметров блока и его наименования
   function getValidations(ActiveBlock) {
-    if (ActiveBlock.type == 0) {
+    if (ActiveBlock.error === "errorNumber") {
+      getErrorBlock(`Ошибка! Введите корректное имя блока`);
+      error = error + 1;
+    }
+    if (ActiveBlock.error === "error") {
+      let type = ActiveBlock.type == 0 ? "R" : "E";
+      getErrorBlock(`Ошибка! Значения элемента ${type}${ActiveBlock.number}`);
+      error = error + 1;
+    }
+    if (!ActiveBlock.error) {
+      blocks.forEach((element) => {
+        if (
+          element.type === ActiveBlock.type &&
+          element.number === ActiveBlock.number
+        ) {
+          if (element.number && element.id != ActiveBlock.id) {
+            element.error = "number";
+
+            getErrorBlock(`Ошибка! Совпадают номера элементов: 
+                    ${element.number}`);
+
+            error = error + 1;
+          }
+        }
+      });
+    }
+
+    /*     if (ActiveBlock.type == 0) {
       if (ActiveBlock.resistance >= 1000 || ActiveBlock.resistance <= 0) {
         ActiveBlock.error = "error";
         ActiveBlock.getErrorMessage();
@@ -37,9 +64,9 @@ const getscheme = (blocks) => {
         getErrorBlock(`Ошибка! Значения элемента E`);
         error = error + 1;
       }
-    }
+    } */
 
-    if (ActiveBlock.error || !ActiveBlock.number) {
+    /*     if (ActiveBlock.error || !ActiveBlock.number) {
       if (ActiveBlock.type < 2) {
         ActiveBlock.getErrorMessage();
         getErrorBlock(`Ошибка! Значения элемента: ${ActiveBlock.number}`);
@@ -61,7 +88,7 @@ const getscheme = (blocks) => {
           }
         }
       });
-    }
+    } */
     return error;
   }
 
