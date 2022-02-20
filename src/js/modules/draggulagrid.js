@@ -385,16 +385,6 @@ const dragggrid = () => {
             validForm(inputFormN, "inputN");
             elem.number = inputFormN.value;
             getErrorMessage(elem);
-
-            /*             switch (elem.type) {
-              case 0:
-                elem.element.textContent = `R${elem.number}`;
-                break;
-
-              case 1:
-                elem.element.textContent = `E${elem.number}`;
-                break;
-            } */
           }
         });
       }

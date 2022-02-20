@@ -47,48 +47,6 @@ const getscheme = (blocks) => {
         }
       });
     }
-
-    /*     if (ActiveBlock.type == 0) {
-      if (ActiveBlock.resistance >= 1000 || ActiveBlock.resistance <= 0) {
-        ActiveBlock.error = "error";
-        ActiveBlock.getErrorMessage();
-        getErrorBlock(`Ошибка! Значения элемента R`);
-        error = error + 1;
-      }
-    }
-
-    if (ActiveBlock.type == 1) {
-      if (ActiveBlock.voltage >= 1000 || ActiveBlock.voltage <= 0) {
-        ActiveBlock.error = "error";
-        ActiveBlock.getErrorMessage();
-        getErrorBlock(`Ошибка! Значения элемента E`);
-        error = error + 1;
-      }
-    } */
-
-    /*     if (ActiveBlock.error || !ActiveBlock.number) {
-      if (ActiveBlock.type < 2) {
-        ActiveBlock.getErrorMessage();
-        getErrorBlock(`Ошибка! Значения элемента: ${ActiveBlock.number}`);
-        error = error + 1;
-      }
-    } else {
-      blocks.forEach((element) => {
-        if (
-          element.type === ActiveBlock.type &&
-          element.number === ActiveBlock.number
-        ) {
-          if (element.number && element.id != ActiveBlock.id) {
-            element.error = "number";
-
-            getErrorBlock(`Ошибка! Совпадают номера элементов: 
-                    ${element.number}`);
-
-            error = error + 1;
-          }
-        }
-      });
-    } */
     return error;
   }
 
